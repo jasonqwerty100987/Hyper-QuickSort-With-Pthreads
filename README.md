@@ -1,7 +1,7 @@
 # Hyper-QuickSort With Pthreads
  Implemantation of Hyper-QuickSort, designed for MPI, with Pthreads
 ## Notes
-- To compile this code, use gcc -pthread -HyperQuickSort.c -o -HyperQuickSort -lm, and use ./HyperQuickSort to run the program
+- To compile this code, use `gcc -pthread -HyperQuickSort.c -o -HyperQuickSort -lm`, and use `./HyperQuickSort` to run the program on Linux Machine
 - Currently, on my local machine, more than 8 threads will cause machine crash. Different machine may have a different result.
 - The memory access overhead is huge due to the limitation of pthread and the nature of Hyper-QuickSort (Designed for MPI rather than pthread) // will be improved in the future iteration
 - [Link](https://github.com/Minokis/MPI-Quicksort-Hypercubes) to the MPI implemantation of Hyper-QuickSort by [Minokis](https://github.com/Minokis) who has no connection with me.
