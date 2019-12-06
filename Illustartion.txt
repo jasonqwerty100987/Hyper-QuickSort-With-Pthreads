@@ -1,0 +1,44 @@
+Variable Name: increments
+Type: pointer to an array and global
+Size: log2(NUM_THREADS)
+Uses: Part of the function getpostion() which is used to to determine each thread should use which index to get their pivot value or where to put their pivot value in the pivot variable.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable Name: midindex_ptr
+Type: pointer to an array and global
+Size: NUM_THREADS
+Uses: midindex_ptr is used to store the cutoff index determined from each threads
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable Name: pivot
+Type: pointer to an array and global
+Size: NUM_THREADS - 1
+Uses: pivot is used to store the pivot value from each of the specified threads which are determined in each iteration
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable Name: attribution
+Type: pointer to an array and global
+Size: NUM_THREADS * 3
+Uses: attribution array contains all the starting indexes, ending indexes, and length of each local array in each thread. All indexes in the attribution array is applied to the global_array
+*(attribution + pid) is the starting index which points to the global_array where the first element in the local_array of the thread with the specific pid is located.
+*(attribution + pid + 1) is the ending index which points to the global_array where the last element in the local_array of the thread with the specific pid is located.
+*(attribution + pid + 2) is the length of the local_array of the thread with the specific pid.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Structure Name: sort_info
+Type: User defined Structure
+Uses: this is the structure used to pass all the needed information to each thread.
+int *data is the pointer points to the global unsorted array
+int *indexs is used to be pointer points to the midindex_ptr. But, since midindex_ptr is global now, there is no use of this parameter at this moment.
+int pid is used to assign an distinct identifier to each thread which has a value start from 0 to NUM_THREADS - 1 in the increment of 1.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable Name: local_array
+Type: pointer to an array and is thread local
+Size: roughly is the length of unsorted array / NUM_THREADS, and will change after each swap() called
+Uses: This is the pointer points to the assigned array to each thread.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable Name: iteration
+Type: integer and thread local
+Uses: To count how many iteration left. The value of iteration is initialized as log2(NUM_THREADS), and will decrement by 1 after each iteration
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Structure type: num direction{up,down};
+Type: user defined typed
+Uses: As a parameter of swap() to tell the swap() either to braodcast local array to the higher pid thread or to the lower pid thread
+
+Note: The uses of each function is commented after the implementation of each function.
